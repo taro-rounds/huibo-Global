@@ -1,3 +1,4 @@
+体验网址：https://taro-rounds.github.io/huibo-Global/ 
 **设计亮点说明**
 1. 左侧导航 (IA架构)：清晰地将功能区分为“Dashboard（概览）”、“AI Studio（生产工具）”和“Resources（资产）”，符合SaaS用户心智。
 2. Dashboard：采用了“快捷入口卡片”设计，让用户一进来就能点击核心功能，减少跳出率。右上角高亮显示“余额”，时刻进行商业化暗示。
