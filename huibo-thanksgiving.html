@@ -84,24 +84,28 @@
         }
         .marquee-content {
             display: inline-block;
-            animation: marquee 40s linear infinite; /* 调慢速度以便看清名字 */
+            animation: marquee 60s linear infinite; /* 调慢速度以便看清名字 */
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
 
-        /* 榜单列表条目 */
-        .rank-item {
+        /* Top 20 列表样式 */
+        .rank-row {
             display: flex;
             align-items: center;
-            padding: 12px;
+            justify-content: space-between;
+            padding: 12px 16px;
             border-bottom: 2px dashed #eee;
+            transition: background 0.2s;
         }
-        .rank-item:last-child { border-bottom: none; }
-        .rank-num {
-            width: 30px;
-            height: 30px;
+        .rank-row:hover { background-color: #fffbf0; }
+        .rank-row:last-child { border-bottom: none; }
+        
+        .rank-badge {
+            width: 28px;
+            height: 28px;
             background: #1a1a1a;
             color: white;
             border-radius: 50%;
@@ -109,13 +113,10 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            font-size: 0.8rem;
             margin-right: 12px;
-            font-size: 0.9rem;
         }
-        .rank-top-3 {
-            background: #FF6B6B; /* Top 3 用亮色 */
-            transform: scale(1.1);
-        }
+        .rank-top { background: #FF6B6B; transform: scale(1.1); }
     </style>
 </head>
 <body class="selection:bg-orange-500 selection:text-white">
