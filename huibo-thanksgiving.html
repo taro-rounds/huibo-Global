@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>慧播星 · 感恩有你，温暖同行</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
@@ -38,6 +37,18 @@
             box-shadow: 12px 12px 0px #FF6B6B;
         }
 
+        /* 列表条目卡片 */
+        .list-card {
+            background: white;
+            border: 2px solid #1a1a1a;
+            box-shadow: 4px 4px 0px rgba(0,0,0,1);
+            transition: transform 0.2s;
+        }
+        .list-card:hover {
+            transform: scale(1.02);
+            background-color: #FEF3C7;
+        }
+
         /* 贴纸标签 */
         .sticker-tag {
             display: inline-block;
@@ -57,24 +68,6 @@
             background-color: #FFD700 !important;
         }
 
-        /* 冠军榜单容器 */
-        .champion-frame {
-            border: 6px solid #1a1a1a;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 15px 15px 0px #1a1a1a;
-            position: relative;
-        }
-        
-        .badge {
-            position: absolute;
-            z-index: 10;
-            font-weight: bold;
-            text-transform: uppercase;
-            border: 2px solid black;
-            box-shadow: 4px 4px 0px black;
-        }
-
         /* 跑马灯动画 */
         .marquee-container {
             overflow: hidden;
@@ -89,83 +82,190 @@
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
+
+        /* 装饰元素 */
+        .shape-circle { border-radius: 50%; border: 3px solid black; }
+        .shape-triangle { width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; border-bottom: 35px solid black; }
     </style>
 </head>
 <body class="selection:bg-orange-500 selection:text-white">
 
-    <header class="min-h-[90vh] flex flex-col justify-center items-center px-4 pt-10 pb-20 relative">
-        <div class="absolute top-10 left-10 text-4xl animate-bounce">🦃</div>
-        <div class="absolute top-20 right-20 text-4xl animate-pulse">🍂</div>
+    <header class="min-h-[90vh] flex flex-col justify-center items-center px-4 pt-10 pb-20 relative overflow-hidden">
+        <div class="absolute top-10 left-10 text-6xl animate-bounce z-10">🦃</div>
+        <div class="absolute top-20 right-20 text-6xl animate-pulse z-10">🍂</div>
+        <div class="absolute bottom-20 left-20 w-16 h-16 bg-[#4ECDC4] shape-circle z-0 opacity-80 animate-spin-slow"></div>
+        <div class="absolute top-1/4 right-1/4 w-12 h-12 bg-[#FF6B6B] border-4 border-black transform rotate-45 z-0"></div>
+        <div class="absolute bottom-1/3 right-10 w-24 h-24 bg-yellow-300 rounded-full border-4 border-black -z-10"></div>
+        <div class="absolute top-10 left-1/3 text-9xl text-white opacity-20 fun-font select-none pointer-events-none">THANKS</div>
 
-        <div class="bg-black text-white px-8 py-3 rounded-full font-bold mb-8 transform -rotate-1 border-4 border-white shadow-lg" data-aos="fade-down">
+        <div class="bg-black text-white px-8 py-3 rounded-full font-bold mb-8 transform -rotate-1 border-4 border-white shadow-[8px_8px_0_rgba(0,0,0,0.2)] z-10" data-aos="fade-down">
             ✨ Thanksgiving 2025 · 慧播星 Family
         </div>
 
-        <h1 class="fun-font text-6xl md:text-8xl text-white mb-4 drop-shadow-[5px_5px_0_rgba(0,0,0,1)] text-center">
-            感恩有你<br>温暖同行
+        <h1 class="fun-font text-7xl md:text-9xl text-white mb-6 drop-shadow-[6px_6px_0_rgba(0,0,0,1)] text-center leading-tight z-10">
+            感恩有你<br><span class="text-[#FFD700] text-stroke-black">温暖同行</span>
         </h1>
 
-        <div class="flex flex-col md:flex-row gap-8 mt-12" data-aos="zoom-in">
-            <div class="pop-card p-8 bg-[#FF6B6B] text-white transform -rotate-2">
-                <p class="text-sm font-bold uppercase tracking-widest opacity-90">Total Votes</p>
+        <div class="flex flex-col md:flex-row gap-8 mt-12 z-10" data-aos="zoom-in">
+            <div class="pop-card p-8 bg-[#FF6B6B] text-white transform -rotate-2 hover:rotate-0">
+                <p class="text-sm font-bold uppercase tracking-widest opacity-90 border-b-2 border-white/30 pb-2 mb-2">Total Votes</p>
                 <div class="flex items-baseline gap-2">
                     <span class="text-7xl font-black">669</span>
                     <span class="text-xl">份心意</span>
                 </div>
             </div>
 
-            <div class="pop-card p-8 bg-[#4ECDC4] text-white transform rotate-2">
-                <p class="text-sm font-bold uppercase tracking-widest opacity-90">ShoutOut Stars</p>
+            <div class="pop-card p-8 bg-[#4ECDC4] text-white transform rotate-2 hover:rotate-0">
+                <p class="text-sm font-bold uppercase tracking-widest opacity-90 border-b-2 border-white/30 pb-2 mb-2">ShoutOut Stars</p>
                 <div class="flex items-baseline gap-2">
                     <span class="text-7xl font-black">51</span>
                     <span class="text-xl">位伙伴</span>
                 </div>
             </div>
         </div>
+        
+        <p class="absolute bottom-5 text-sm font-bold text-black/50">Scroll Down for Awards 👇</p>
     </header>
 
-    <section class="py-24 bg-white border-y-4 border-black relative">
+    <section class="py-24 bg-white border-y-4 border-black relative z-20">
         <div class="max-w-6xl mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="fun-font text-5xl mb-4 text-black">🏆 年度人气王 · TOP 3</h2>
+            <div class="text-center mb-16">
+                <span class="bg-yellow-400 border-2 border-black px-4 py-1 rounded-full font-bold text-sm mb-4 inline-block shadow-[4px_4px_0_black]">PEOPLE'S CHOICE</span>
+                <h2 class="fun-font text-5xl md:text-6xl mb-4 text-black">🏆 年度人气王 · TOP 3</h2>
             </div>
 
-
-
-            <div class="grid md:grid-cols-3 gap-8 translate-y-[-40px]">
-                <div class="pop-card bg-[#A9DEF9] p-6 text-center transform md:translate-y-8" data-aos="fade-right">
+            <div class="grid md:grid-cols-3 gap-8 translate-y-[-20px]">
+                <div class="pop-card bg-[#A9DEF9] p-6 text-center transform md:translate-y-12 order-2 md:order-1" data-aos="fade-right">
                     <div class="w-16 h-16 bg-white rounded-full border-2 border-black mx-auto -mt-12 flex items-center justify-center text-3xl shadow-md mb-4">🥈</div>
-                    <h3 class="text-2xl font-black mb-1">张永哲</h3>
-                    <p class="text-sm font-bold text-blue-700 mb-4">研发 · 帅气技术男神</p>
-                    <div class="text-left bg-white/50 p-3 rounded-lg text-sm border border-black/10">
-                        <p>💻 <strong>Tag：</strong>技术后盾</p>
-                        <p class="text-xs mt-1">"抽丝剥茧，复杂逻辑明明白白！"</p>
+                    <h3 class="text-3xl font-black mb-1">张永哲</h3>
+                    <div class="inline-block bg-black text-white text-xs px-2 py-1 rounded mb-3">28 票</div>
+                    <p class="text-sm font-bold text-blue-900 mb-4">研发 · 帅气技术男神</p>
+                    <div class="text-left bg-white/60 p-3 rounded-lg text-sm border border-black/10">
+                        <p class="text-xs italic">"抽丝剥茧，复杂逻辑明明白白！技术后盾！"</p>
                     </div>
                 </div>
-                <div class="pop-card bg-[#FF99C8] p-8 text-center relative z-10" data-aos="fade-up">
-                    <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-400 border-2 border-black px-4 py-1 font-black rounded-full shadow-sm text-sm">KING OF VOTES</div>
-                    <div class="w-20 h-20 bg-white rounded-full border-2 border-black mx-auto -mt-14 flex items-center justify-center text-4xl shadow-md mb-4">🥇</div>
-                    <h3 class="text-3xl font-black mb-1">朱星星</h3>
-                    <p class="text-sm font-bold text-pink-700 mb-4">运营 · 努力的人设 · 卷王</p>
-                    <div class="text-left bg-white/50 p-4 rounded-lg text-sm border border-black/10">
-                        <p>🚀 <strong>Tag：</strong>7/24h On Call</p>
-                        <p class="text-xs mt-1">"没有你我们可咋活啊！"</p>
+
+                <div class="pop-card bg-[#FF99C8] p-8 text-center relative z-10 order-1 md:order-2 scale-110" data-aos="fade-up">
+                    <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-400 border-2 border-black px-6 py-2 font-black rounded-full shadow-lg text-sm whitespace-nowrap">KING OF VOTES</div>
+                    <div class="w-24 h-24 bg-white rounded-full border-4 border-black mx-auto -mt-16 flex items-center justify-center text-5xl shadow-lg mb-6">🥇</div>
+                    <h3 class="text-4xl font-black mb-2">朱星星</h3>
+                    <div class="inline-block bg-black text-white text-sm px-3 py-1 rounded mb-4">46 票</div>
+                    <p class="text-sm font-bold text-pink-900 mb-4">运营 · 卷王 · Case主理人</p>
+                    <div class="text-left bg-white/60 p-4 rounded-lg text-sm border border-black/10">
+                        <p class="text-xs italic">"没有你我们可咋活啊！7/24h On Call，值得信赖！"</p>
                     </div>
                 </div>
-                <div class="pop-card bg-[#FCF6BD] p-6 text-center transform md:translate-y-8" data-aos="fade-left">
+
+                <div class="pop-card bg-[#FCF6BD] p-6 text-center transform md:translate-y-12 order-3" data-aos="fade-left">
                     <div class="w-16 h-16 bg-white rounded-full border-2 border-black mx-auto -mt-12 flex items-center justify-center text-3xl shadow-md mb-4">🥉</div>
-                    <h3 class="text-2xl font-black mb-1">谢丹</h3>
-                    <p class="text-sm font-bold text-orange-700 mb-4">产品 · 社交暴徒</p>
-                    <div class="text-left bg-white/50 p-3 rounded-lg text-sm border border-black/10">
-                        <p>💃 <strong>Tag：</strong>情绪价值Max</p>
-                        <p class="text-xs mt-1">"哪里有欢笑哪里就有她！"</p>
+                    <h3 class="text-3xl font-black mb-1">谢丹</h3>
+                    <div class="inline-block bg-black text-white text-xs px-2 py-1 rounded mb-3">27 票</div>
+                    <p class="text-sm font-bold text-orange-900 mb-4">产品 · 社交暴徒</p>
+                    <div class="text-left bg-white/60 p-3 rounded-lg text-sm border border-black/10">
+                        <p class="text-xs italic">"哪里有欢笑哪里就有她！情绪价值Max！"</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="py-16 bg-[#f0f0f0] border-b-4 border-black">
+    <section class="py-20 bg-[#f8f9fa] border-b-4 border-black pattern-grid">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="fun-font text-4xl mb-2">🔥 实力人气榜 · TOP 20</h2>
+                <p class="text-gray-500 text-sm font-bold">感谢每一位伙伴的辛勤付出</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" data-aos="fade-up">
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#FF6B6B]">
+                    <span class="text-xs font-bold text-gray-400">NO.4</span>
+                    <h4 class="text-xl font-black">李宝</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1 font-bold">27 票</span>
+                </div>
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#FF6B6B]">
+                    <span class="text-xs font-bold text-gray-400">NO.5</span>
+                    <h4 class="text-xl font-black">戴进墩</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1 font-bold">26 票</span>
+                </div>
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#FF6B6B]">
+                    <span class="text-xs font-bold text-gray-400">NO.6</span>
+                    <h4 class="text-xl font-black">彭建</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1 font-bold">25 票</span>
+                </div>
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#FF6B6B]">
+                    <span class="text-xs font-bold text-gray-400">NO.7</span>
+                    <h4 class="text-xl font-black">夏童</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1 font-bold">24 票</span>
+                </div>
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#4ECDC4]">
+                    <span class="text-xs font-bold text-gray-400">NO.8</span>
+                    <h4 class="text-xl font-black">郑慧懿</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1 font-bold">23 票</span>
+                </div>
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#4ECDC4]">
+                    <span class="text-xs font-bold text-gray-400">NO.9</span>
+                    <h4 class="text-xl font-black">林镇洋</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1 font-bold">22 票</span>
+                </div>
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#4ECDC4]">
+                    <span class="text-xs font-bold text-gray-400">NO.10</span>
+                    <h4 class="text-xl font-black">张鹏</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1 font-bold">22 票</span>
+                </div>
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#4ECDC4]">
+                    <span class="text-xs font-bold text-gray-400">NO.11</span>
+                    <h4 class="text-xl font-black">王利顺</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1 font-bold">22 票</span>
+                </div>
+
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#FFE66D]">
+                    <span class="text-xs font-bold text-gray-400">NO.12</span>
+                    <h4 class="text-lg font-bold">徐杰</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1">21 票</span>
+                </div>
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#FFE66D]">
+                    <span class="text-xs font-bold text-gray-400">NO.13</span>
+                    <h4 class="text-lg font-bold">陈可依</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1">21 票</span>
+                </div>
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#FFE66D]">
+                    <span class="text-xs font-bold text-gray-400">NO.14</span>
+                    <h4 class="text-lg font-bold">范长法</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1">17 票</span>
+                </div>
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#FFE66D]">
+                    <span class="text-xs font-bold text-gray-400">NO.15</span>
+                    <h4 class="text-lg font-bold">刘佳佳</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1">17 票</span>
+                </div>
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#1A202C]">
+                    <span class="text-xs font-bold text-gray-400">NO.16</span>
+                    <h4 class="text-lg font-bold">何炆峰</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1">15 票</span>
+                </div>
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#1A202C]">
+                    <span class="text-xs font-bold text-gray-400">NO.17</span>
+                    <h4 class="text-lg font-bold">杨智岚</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1">14 票</span>
+                </div>
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#1A202C]">
+                    <span class="text-xs font-bold text-gray-400">NO.18</span>
+                    <h4 class="text-lg font-bold">吴志超</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1">14 票</span>
+                </div>
+                <div class="list-card p-4 rounded-xl flex flex-col items-center text-center bg-white border-l-8 border-l-[#1A202C]">
+                    <span class="text-xs font-bold text-gray-400">NO.19</span>
+                    <h4 class="text-lg font-bold">朱煜东</h4>
+                    <span class="bg-gray-100 px-2 py-0.5 rounded text-xs mt-1">14 票</span>
+                </div>
+            </div>
+            <div class="text-right mt-4 text-xs text-gray-400 font-bold">
+                * 注：数据统计截止至 11月27日 24:00（已去重）
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 bg-[#e0e0e0] border-b-4 border-black">
         <div class="max-w-5xl mx-auto px-4 text-center">
             <h2 class="fun-font text-4xl mb-8">💬 2025 年度“黑话”墙</h2>
             <div class="flex flex-wrap justify-center gap-2" data-aos="zoom-in">
@@ -179,6 +279,8 @@
                 <span class="sticker-tag bg-white -rotate-3">没你不行</span>
                 <span class="sticker-tag bg-[#FF99C8] rotate-1">姐!!!</span>
                 <span class="sticker-tag bg-white rotate-4">救火队长</span>
+                <span class="sticker-tag bg-white -rotate-2">情绪价值MAX</span>
+                <span class="sticker-tag bg-[#CBF3F0] rotate-2">我在上海</span>
             </div>
         </div>
     </section>
@@ -260,7 +362,10 @@
                 感谢这 <strong>669</strong> 次的点赞与认可。<br>
                 慧播星因为有你们每一位，才如此温暖。<br>
             </p>
-            <div class="mt-12 inline-block border-2 border-white/30 px-8 py-3 rounded-full text-sm font-bold tracking-widest hover:bg-white hover:text-black transition-colors duration-300 cursor-pointer">
+            <p class="text-xs text-gray-600 mt-6 font-mono">
+                数据统计时间：截止2025年11月27日 24:00 (去重统计)
+            </p>
+            <div class="mt-8 inline-block border-2 border-white/30 px-8 py-3 rounded-full text-sm font-bold tracking-widest hover:bg-white hover:text-black transition-colors duration-300 cursor-pointer">
                 👋 2026，来年再见！
             </div>
         </div>
