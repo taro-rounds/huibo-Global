@@ -25,24 +25,24 @@
 
         .fun-font { font-family: 'ZCOOL KuaiLe', cursive; }
 
-        /* 波普卡片 */
+        /* 波普卡片风格 */
         .pop-card {
             background: white;
             border: 3px solid #1a1a1a;
-            border-radius: 1.5rem;
-            box-shadow: 8px 8px 0px rgba(0,0,0,0.8);
+            border-radius: 1rem;
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.8);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .pop-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 12px 12px 0px #FF6B6B;
+            transform: translateY(-4px);
+            box-shadow: 10px 10px 0px #FF6B6B;
         }
 
         /* 贴纸标签 */
         .sticker-tag {
             display: inline-block;
-            padding: 8px 16px;
-            margin: 6px;
+            padding: 6px 12px;
+            margin: 4px;
             border: 2px solid #1a1a1a;
             border-radius: 8px;
             font-weight: 900;
@@ -50,9 +50,10 @@
             transition: transform 0.2s;
             box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
             background: white;
+            font-size: 0.9rem;
         }
         .sticker-tag:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(2deg) !important;
             z-index: 10;
             background-color: #FFD700 !important;
         }
@@ -62,7 +63,7 @@
             border: 6px solid #1a1a1a;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 15px 15px 0px #1a1a1a;
+            box-shadow: 12px 12px 0px #1a1a1a;
             position: relative;
         }
         
@@ -83,17 +84,43 @@
         }
         .marquee-content {
             display: inline-block;
-            animation: marquee 30s linear infinite;
+            animation: marquee 40s linear infinite; /* 调慢速度以便看清名字 */
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
+
+        /* 榜单列表条目 */
+        .rank-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 2px dashed #eee;
+        }
+        .rank-item:last-child { border-bottom: none; }
+        .rank-num {
+            width: 30px;
+            height: 30px;
+            background: #1a1a1a;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 0.9rem;
+        }
+        .rank-top-3 {
+            background: #FF6B6B; /* Top 3 用亮色 */
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body class="selection:bg-orange-500 selection:text-white">
 
-    <header class="min-h-[90vh] flex flex-col justify-center items-center px-4 pt-10 pb-20 relative">
+    <header class="min-h-[85vh] flex flex-col justify-center items-center px-4 pt-10 pb-16 relative">
         <div class="absolute top-10 left-10 text-4xl animate-bounce">🦃</div>
         <div class="absolute top-20 right-20 text-4xl animate-pulse">🍂</div>
 
@@ -101,179 +128,35 @@
             ✨ Thanksgiving 2025 · 慧播星 Family
         </div>
 
-        <h1 class="fun-font text-6xl md:text-8xl text-white mb-4 drop-shadow-[5px_5px_0_rgba(0,0,0,1)] text-center">
+        <h1 class="fun-font text-5xl md:text-8xl text-white mb-4 drop-shadow-[4px_4px_0_rgba(0,0,0,1)] text-center leading-tight">
             感恩有你<br>温暖同行
         </h1>
 
-        <div class="flex flex-col md:flex-row gap-8 mt-12" data-aos="zoom-in">
-            <div class="pop-card p-8 bg-[#FF6B6B] text-white transform -rotate-2">
-                <p class="text-sm font-bold uppercase tracking-widest opacity-90">Total Votes</p>
-                <div class="flex items-baseline gap-2">
-                    <span class="text-7xl font-black">669</span>
-                    <span class="text-xl">份心意</span>
+        <div class="flex flex-col md:flex-row gap-6 mt-10" data-aos="zoom-in">
+            <div class="pop-card p-6 bg-[#FF6B6B] text-white transform -rotate-2 min-w-[200px] text-center">
+                <p class="text-xs font-bold uppercase tracking-widest opacity-90">Total Votes</p>
+                <div class="flex items-baseline justify-center gap-2">
+                    <span class="text-6xl font-black">669</span>
+                    <span class="text-lg">票</span>
                 </div>
             </div>
 
-            <div class="pop-card p-8 bg-[#4ECDC4] text-white transform rotate-2">
-                <p class="text-sm font-bold uppercase tracking-widest opacity-90">ShoutOut Stars</p>
-                <div class="flex items-baseline gap-2">
-                    <span class="text-7xl font-black">51</span>
-                    <span class="text-xl">位伙伴</span>
+            <div class="pop-card p-6 bg-[#4ECDC4] text-white transform rotate-2 min-w-[200px] text-center">
+                <p class="text-xs font-bold uppercase tracking-widest opacity-90">ShoutOut Stars</p>
+                <div class="flex items-baseline justify-center gap-2">
+                    <span class="text-6xl font-black">51</span>
+                    <span class="text-lg">人</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <section class="py-24 bg-white border-y-4 border-black relative">
+    <section class="py-20 bg-white border-y-4 border-black relative">
         <div class="max-w-6xl mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="fun-font text-5xl mb-4 text-black">🏆 年度人气王 · TOP 3</h2>
+                <h2 class="fun-font text-4xl md:text-5xl mb-4 text-black">🏆 年度人气王 · TOP 3</h2>
             </div>
 
             <div class="max-w-4xl mx-auto mb-16" data-aos="fade-up">
                 <div class="champion-frame bg-orange-100">
-                    <img src="http://googleusercontent.com/image_generation_content/0" alt="Top 3 Winners" class="w-full h-auto object-cover">
-                    <div class="badge bg-yellow-400 text-black top-4 left-4 px-4 py-2 rotate-[-5deg]">NOVA TEAM</div>
-                    <div class="badge bg-pink-400 text-white bottom-4 right-4 px-4 py-2 rotate-[3deg]">Best Colleague</div>
-                </div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8 translate-y-[-40px]">
-                <div class="pop-card bg-[#A9DEF9] p-6 text-center transform md:translate-y-8" data-aos="fade-right">
-                    <div class="w-16 h-16 bg-white rounded-full border-2 border-black mx-auto -mt-12 flex items-center justify-center text-3xl shadow-md mb-4">🥈</div>
-                    <h3 class="text-2xl font-black mb-1">张永哲</h3>
-                    <p class="text-sm font-bold text-blue-700 mb-4">研发 · 帅气技术男神</p>
-                    <div class="text-left bg-white/50 p-3 rounded-lg text-sm border border-black/10">
-                        <p>💻 <strong>Tag：</strong>技术后盾</p>
-                        <p class="text-xs mt-1">"抽丝剥茧，复杂逻辑明明白白！"</p>
-                    </div>
-                </div>
-                <div class="pop-card bg-[#FF99C8] p-8 text-center relative z-10" data-aos="fade-up">
-                    <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-yellow-400 border-2 border-black px-4 py-1 font-black rounded-full shadow-sm text-sm">KING OF VOTES</div>
-                    <div class="w-20 h-20 bg-white rounded-full border-2 border-black mx-auto -mt-14 flex items-center justify-center text-4xl shadow-md mb-4">🥇</div>
-                    <h3 class="text-3xl font-black mb-1">朱星星</h3>
-                    <p class="text-sm font-bold text-pink-700 mb-4">运营 · 努力的人设 · 卷王</p>
-                    <div class="text-left bg-white/50 p-4 rounded-lg text-sm border border-black/10">
-                        <p>🚀 <strong>Tag：</strong>7/24h On Call</p>
-                        <p class="text-xs mt-1">"没有你我们可咋活啊！"</p>
-                    </div>
-                </div>
-                <div class="pop-card bg-[#FCF6BD] p-6 text-center transform md:translate-y-8" data-aos="fade-left">
-                    <div class="w-16 h-16 bg-white rounded-full border-2 border-black mx-auto -mt-12 flex items-center justify-center text-3xl shadow-md mb-4">🥉</div>
-                    <h3 class="text-2xl font-black mb-1">谢丹</h3>
-                    <p class="text-sm font-bold text-orange-700 mb-4">产品 · 社交暴徒</p>
-                    <div class="text-left bg-white/50 p-3 rounded-lg text-sm border border-black/10">
-                        <p>💃 <strong>Tag：</strong>情绪价值Max</p>
-                        <p class="text-xs mt-1">"哪里有欢笑哪里就有她！"</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-16 bg-[#f0f0f0] border-b-4 border-black">
-        <div class="max-w-5xl mx-auto px-4 text-center">
-            <h2 class="fun-font text-4xl mb-8">💬 2025 年度“黑话”墙</h2>
-            <div class="flex flex-wrap justify-center gap-2" data-aos="zoom-in">
-                <span class="sticker-tag bg-[#FF6B6B] text-white text-2xl rotate-2">牛逼!</span>
-                <span class="sticker-tag bg-[#4ECDC4] text-2xl -rotate-3">靠谱的神</span>
-                <span class="sticker-tag bg-white text-xl rotate-1">猛拍肚皮 Oi!</span>
-                <span class="sticker-tag bg-[#FFD166] text-xl -rotate-2">7/24h On Call</span>
-                <span class="sticker-tag bg-white rotate-3">代码稳如狗</span>
-                <span class="sticker-tag bg-white -rotate-1">小太阳</span>
-                <span class="sticker-tag bg-[#A9DEF9] rotate-2">凌晨2点战神</span>
-                <span class="sticker-tag bg-white -rotate-3">没你不行</span>
-                <span class="sticker-tag bg-[#FF99C8] rotate-1">姐!!!</span>
-                <span class="sticker-tag bg-white rotate-4">救火队长</span>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-24 bg-[#CBF3F0] relative overflow-hidden">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="text-center mb-12" data-aos="fade-down">
-                <h2 class="fun-font text-4xl text-black">✨ 每一颗星都发光</h2>
-                <p class="text-gray-600 font-bold mt-2">Team Persona Awards</p>
-            </div>
-
-            <div class="grid md:grid-cols-4 gap-6">
-                <div class="pop-card p-6 bg-[#1A202C] text-white" data-aos="fade-up" data-aos-delay="0">
-                    <div class="text-4xl mb-4">🦉</div>
-                    <h3 class="text-xl font-bold mb-2 text-blue-300">暗夜守护者</h3>
-                    <p class="text-xs text-gray-400 mb-4">凌晨的Slack总有他们的身影</p>
-                    <div class="border-t border-gray-700 pt-3 flex flex-wrap gap-2">
-                        <span class="bg-blue-900 px-2 py-1 rounded text-xs">@林镇洋</span>
-                        <span class="bg-blue-900 px-2 py-1 rounded text-xs">@王利顺</span>
-                        <span class="bg-blue-900 px-2 py-1 rounded text-xs">@张鹏</span>
-                    </div>
-                </div>
-
-                <div class="pop-card p-6 bg-white text-black" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-4xl mb-4">😎</div>
-                    <h3 class="text-xl font-bold mb-2 text-purple-600">极简狠人帮</h3>
-                    <p class="text-xs text-gray-500 mb-4">人狠话不多，代码就是诗</p>
-                    <div class="border-t border-gray-200 pt-3 flex flex-wrap gap-2">
-                        <span class="bg-gray-100 px-2 py-1 rounded text-xs">@彭建</span>
-                        <span class="bg-gray-100 px-2 py-1 rounded text-xs">@朱煜东</span>
-                        <span class="bg-gray-100 px-2 py-1 rounded text-xs">@吴志超</span>
-                    </div>
-                </div>
-
-                <div class="pop-card p-6 bg-[#FFD166] text-black" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-4xl mb-4">🎉</div>
-                    <h3 class="text-xl font-bold mb-2 text-orange-700">气氛组担当</h3>
-                    <p class="text-xs text-gray-700 mb-4">Oi! Oi! 团队的开心果</p>
-                    <div class="border-t border-orange-300 pt-3 flex flex-wrap gap-2">
-                        <span class="bg-white/50 px-2 py-1 rounded text-xs">@戴进墩</span>
-                        <span class="bg-white/50 px-2 py-1 rounded text-xs">@李宝</span>
-                        <span class="bg-white/50 px-2 py-1 rounded text-xs">@陈可依</span>
-                    </div>
-                </div>
-
-                <div class="pop-card p-6 bg-[#FF99C8] text-black" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-4xl mb-4">🔋</div>
-                    <h3 class="text-xl font-bold mb-2 text-pink-700">Always Online</h3>
-                    <p class="text-xs text-gray-700 mb-4">可靠性 99.99% 的伙伴</p>
-                    <div class="border-t border-pink-300 pt-3 flex flex-wrap gap-2">
-                        <span class="bg-white/50 px-2 py-1 rounded text-xs">@夏童</span>
-                        <span class="bg-white/50 px-2 py-1 rounded text-xs">@郑慧懿</span>
-                        <span class="bg-white/50 px-2 py-1 rounded text-xs">@徐杰</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-4 bg-black border-y-4 border-white text-white font-bold text-lg overflow-hidden">
-        <div class="marquee-container">
-            <div class="marquee-content">
-                ❤️ 感谢 朱星星 张永哲 谢丹 夏童 李宝 张鹏 郑慧懿 彭建 陈可依 刘佳佳 范长法 何炆峰 朱煜东 吴志超 杨智岚 吴泽伟 郭壮智 贾晋悦 王冠禹 邓世杰 李爱丽 赵英龙 禹尧 王昱程 朱程磊 徐佳鼎 郭晋贤 杨健 李浩杰 邹海军 曾钰尧 戴欣怡 陈佳怡 孙红红 张赫男 曹雪 丁禹希 祁洋 李超 李一青 宁敢 陈婉 王凯思源 欧特库尔 戴欣悦 王玥涵 罗永浩 韩悦 ❤️ 感谢所有慧播星的伙伴们！ &nbsp;&nbsp;&nbsp;&nbsp;
-                ❤️ 感谢 朱星星 张永哲 谢丹 夏童 李宝 张鹏 郑慧懿 彭建 陈可依 刘佳佳 范长法 何炆峰 朱煜东 吴志超 杨智岚 吴泽伟 郭壮智 贾晋悦 王冠禹 邓世杰 李爱丽 赵英龙 禹尧 王昱程 朱程磊 徐佳鼎 郭晋贤 杨健 李浩杰 邹海军 曾钰尧 戴欣怡 陈佳怡 孙红红 张赫男 曹雪 丁禹希 祁洋 李超 李一青 宁敢 陈婉 王凯思源 欧特库尔 戴欣悦 王玥涵 罗永浩 韩悦 ❤️ 感谢所有慧播星的伙伴们！ &nbsp;&nbsp;&nbsp;&nbsp;
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-16 text-center bg-[#1a1a1a] text-white relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full flex justify-center items-center opacity-5 pointer-events-none">
-            <span class="text-[10rem] font-black uppercase">Family</span>
-        </div>
-        <div class="relative z-10" data-aos="fade-up">
-            <div class="w-16 h-16 bg-white text-black rounded-full flex items-center justify-center mx-auto text-3xl mb-6 shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-                ❤️
-            </div>
-            <h2 class="fun-font text-4xl mb-4">We Are A Family.</h2>
-            <p class="text-xl text-gray-400 max-w-2xl mx-auto px-4 leading-relaxed">
-                感谢这 <strong>669</strong> 次的点赞与认可。<br>
-                慧播星因为有你们每一位，才如此温暖。<br>
-            </p>
-            <div class="mt-12 inline-block border-2 border-white/30 px-8 py-3 rounded-full text-sm font-bold tracking-widest hover:bg-white hover:text-black transition-colors duration-300 cursor-pointer">
-                👋 2026，来年再见！
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        AOS.init({ duration: 800, once: true });
-    </script>
-</body>
-</html>
+                    <img src="http://googleusercontent.com/image_generation_content/0
