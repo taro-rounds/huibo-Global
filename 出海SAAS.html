@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>慧播星出海平台 - 内测申请</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* 简单的过渡动画 */
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* 字体设置，优化中文显示 */
+        body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+    <nav class="flex items-center justify-between px-6 md:px-8 py-4 bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="flex items-center gap-2 cursor-pointer" onclick="resetDemo()">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">慧</div>
+            <span class="text-xl font-bold tracking-tight">慧播星 | 出海版</span>
+        </div>
+        <div class="flex gap-4 items-center">
+            <button id="nav-login-btn" onclick="handleLogin()" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">
+                登录 / 注册
+            </button>
+            <div id="nav-user-avatar" class="hidden flex items-center gap-2">
+                <span class="text-xs text-slate-500 mr-1">百度账号: user_123</span>
+                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-600">
+                    李
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-1 relative">
+        
+        <section id="view-landing" class="view-section fade-in flex flex-col items-center pt-16 px-4 pb-20">
+            <div class="text-center max-w-4xl space-y-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-sm font-medium border border-blue-100">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                    内测通道开启：2026年1月15日正式发布
+                </div>
+                <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+                    一站式 AIGC 出海视频创作平台<br/>
+                    <span class="text-blue-600">让商品走向全球</span>
+                </h1>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+                    专为跨境电商打造。支持视频翻译、数字人克隆、多语言配音。
+                </p>
+                <div class="pt-6">
+                    <button onclick="handleLogin()" id="hero-cta-btn" class="group px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold rounded-xl shadow-lg shadow-blue-200 transition-all flex items-center gap-2 mx-auto">
+                        <span>立即体验</span>
+                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                    <p class="mt-3 text-xs text-slate-400">支持百度账号直接访问</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mt-20 max-w-6xl w-full">
+                <div class="p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center mb-4">
+                        <i data-lucide="globe" class="text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">AI 视频翻译</h3>
+                    <p class="text-slate-500 leading-relaxed text-sm">上传中文带货视频，一键翻译为英语、泰语、印尼语，口型自动对齐。</p>
+                </div>
+                <div class="p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center mb-4">
+                        <i data-lucide="users" class="text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">数字人形象克隆</h3>
+                    <p class="text-slate-500 leading-relaxed text-sm">仅需一张照片或一段视频，即可生成专属数字分身，支持多种外语口播。</p>
+                </div>
+                <div class="p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center mb-4">
+                        <i data-lucide="mic" class="text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">多语言 TTS 配音</h3>
+                    <p class="text-slate-500 leading-relaxed text-sm">输入中文脚本，自动生成地道的外语配音，克隆音色还原度 99%。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-form" class="view-section hidden fade-in flex items-center justify-center min-h-[80vh] px-4">
+            <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 max-w-md w-full">
+                <div class="mb-6 text-center">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="lock" class="w-6 h-6"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-slate-900">申请加入内测白名单</h2>
+                    <p class="text-slate-500 mt-2 text-sm">
+                        MVP 阶段暂未完全开放。请填写信息，审核通过后即可使用。
+                    </p>
+                </div>
+
+                <form onsubmit="handleWaitlistSubmit(event)" class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">公司 / 团队名称 <span class="text-red-500">*</span></label>
+                        <input required type="text" id="company-input"
+                            class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            placeholder="例如：东莞新知科技有限公司">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">联系手机号 <span class="text-red-500">*</span></label>
+                        <input required type="tel" id="phone-input"
+                            class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
+                            placeholder="请输入手机号，用于接收开通短信">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">主要业务场景 <span class="text-red-500">*</span></label>
+                        <select class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                            <option value="ecommerce">跨境电商 (TikTok/Shopify)</option>
+                            <option value="marketing">品牌出海营销</option>
+                            <option value="agency">MCN / 广告代理商</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">预计日均视频产量</label>
+                        <select class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none bg-white">
+                            <option value="low">10条以下</option>
+                            <option value="medium">10 - 50条</option>
+                            <option value="high">50条以上 (VIP通道)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="submit-btn"
+                        class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors mt-4">
+                        提交申请
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section id="view-pending" class="view-section hidden fade-in flex items-center justify-center min-h-[80vh] px-4">
+            <div class="text-center max-w-md">
+                <div class="mb-6 relative inline-block">
+                    <div class="w-20 h-20 bg-yellow-50 rounded-full flex items-center justify-center mx-auto">
+                        <i data-lucide="clock" class="w-10 h-10 text-yellow-600"></i>
+                    </div>
+                    <div class="absolute top-0 right-0">
+                        <span class="flex h-4 w-4">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-4 w-4 bg-yellow-500"></span>
+                        </span>
+                    </div>
+                </div>
+                
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">申请已提交，正在审核中</h2>
+                <p class="text-slate-600 mb-8 leading-relaxed text-sm">
+                    感谢您的申请！我们的运营团队正在进行白名单配置。<br>
+                    预计将在 <strong>24小时内</strong> 开通权限，届时您将收到短信通知。
+                </p>
+                <div class="bg-slate-50 rounded-lg p-4 text-sm text-slate-500 border border-slate-200 text-left">
+                    <p class="flex justify-between mb-2"><span>当前状态：</span><span class="font-bold text-yellow-600">等待开通</span></p>
+                    <p class="flex justify-between mb-2"><span>登录账号：</span><span>baidu_user_123</span></p>
+                    <p class="flex justify-between mb-2"><span>联系方式：</span><span id="display-phone">138****0000</span></p>
+                    <p class="flex justify-between"><span>申请时间：</span><span id="apply-time">2025/12/01 10:30</span></p>
+                </div>
+                <button class="mt-8 text-blue-600 font-medium hover:underline text-sm">联系产品运营催审</button>
+            </div>
+        </section>
+
+        <section id="view-dashboard" class="view-section hidden fade-in flex items-center justify-center h-[80vh] p-8">
+            <div class="w-full h-full bg-slate-100 border-dashed border-2 border-slate-300 rounded-xl flex flex-col items-center justify-center text-center">
+                <i data-lucide="layout-grid" class="w-12 h-12 text-blue-500 mb-4"></i>
+                <h2 class="text-2xl font-bold text-slate-700">欢迎进入工作台</h2>
+                <p class="text-slate-500 mt-2">这里将加载 [资产中心] 与 [视频编辑器]</p>
+                <div class="flex gap-4 mt-6">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-sm">
+                        新建视频项目
+                    </button>
+                    <button onclick="resetDemo()" class="px-4 py-2 bg-white border border-slate-300 text-slate-600 rounded hover:bg-slate-50 transition text-sm">
+                        退出演示
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // 初始化图标库
+        lucide.createIcons();
+
+        // 视图常量
+        const VIEWS = {
+            LANDING: 'view-landing',
+            FORM: 'view-form',
+            PENDING: 'view-pending',
+            DASHBOARD: 'view-dashboard'
+        };
+
+        // 切换视图函数
+        function switchView(viewId) {
+            // 隐藏所有视图
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            // 显示目标视图
+            document.getElementById(viewId).classList.remove('hidden');
+            
+            // 更新导航栏状态
+            const isLoggedIn = viewId !== VIEWS.LANDING;
+            const loginBtn = document.getElementById('nav-login-btn');
+            const avatar = document.getElementById('nav-user-avatar');
+            
+            if (isLoggedIn) {
+                loginBtn.classList.add('hidden');
+                avatar.classList.remove('hidden');
+            } else {
+                loginBtn.classList.remove('hidden');
+                avatar.classList.add('hidden');
+            }
+        }
+
+        // 模拟：点击登录 (百度 OAuth)
+        function handleLogin() {
+            const btn = document.getElementById('hero-cta-btn');
+            const navBtn = document.getElementById('nav-login-btn');
+            const originalText = btn.innerHTML;
+            
+            // 模拟跳转中状态
+            btn.innerHTML = '正在跳转百度账号登录...';
+            btn.classList.add('opacity-80');
+            navBtn.innerText = '登录中...';
+            
+            setTimeout(() => {
+                // 模拟登录成功，因无权限，跳转至申请表单
+                switchView(VIEWS.FORM);
+                // 恢复按钮文字
+                btn.innerHTML = originalText;
+                btn.classList.remove('opacity-80');
+                navBtn.innerText = '登录 / 注册';
+            }, 800);
+        }
+
+        // 模拟：提交白名单申请
+        function handleWaitlistSubmit(event) {
+            event.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            const company = document.getElementById('company-input').value;
+            const phone = document.getElementById('phone-input').value; // 获取手机号
+
+            btn.innerText = '正在提交...';
+            btn.disabled = true;
+            btn.classList.add('opacity-75', 'cursor-not-allowed');
+
+            // 模拟记录当前时间
+            const now = new Date();
+            document.getElementById('apply-time').innerText = now.toLocaleString('zh-CN', { hour12: false });
+            
+            // 模拟在状态页显示手机号 (打码处理)
+            const maskedPhone = phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+            document.getElementById('display-phone').innerText = maskedPhone || phone;
+
+            console.log("提交数据 - 公司:", company, "手机:", phone);
+
+            setTimeout(() => {
+                // 跳转到审核状态页
+                switchView(VIEWS.PENDING);
+                
+                // 恢复表单状态以便下次演示
+                btn.innerText = '提交申请';
+                btn.disabled = false;
+                btn.classList.remove('opacity-75', 'cursor-not-allowed');
+            }, 1000);
+        }
+
+        // 重置演示
+        function resetDemo() {
+            if(confirm("确定要重置演示回到首页吗？")) {
+                document.querySelector('form').reset();
+                switchView(VIEWS.LANDING);
+            }
+        }
+    </script>
+</body>
+</html>
