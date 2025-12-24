@@ -3,446 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>慧播星 (SmartStream) - AI Video Platform Prototype</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>CEO视频祝福审核台 (列表模式)</title>
     <style>
         :root {
-            --primary: #6366f1; /* Indigo */
-            --primary-hover: #4f46e5;
-            --bg-body: #f3f4f6;
-            --bg-card: #ffffff;
-            --text-main: #111827;
-            --text-sub: #6b7280;
-            --border: #e5e7eb;
-            --sidebar-width: 240px;
-            --header-height: 64px;
+            --primary-color: #0052d9;
+            --success-color: #00a870;
+            --danger-color: #e34d59;
+            --bg-color: #f5f7fa;
+            --text-main: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --border-color: #e7e7e7;
+            --table-header-bg: #fafafa;
+            --hover-bg: #f2f3f5;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-        
-        body { background-color: var(--bg-body); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
-
-        /* Sidebar */
-        .sidebar {
-            width: var(--sidebar-width);
-            background: var(--bg-card);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
             padding: 20px;
-            flex-shrink: 0;
+            color: var(--text-main);
         }
-        .logo { font-size: 20px; font-weight: 800; color: var(--primary); margin-bottom: 40px; display: flex; align-items: center; gap: 10px; }
-        .nav-item {
-            display: flex; align-items: center; gap: 12px;
-            padding: 12px 16px;
-            color: var(--text-sub);
-            text-decoration: none;
-            border-radius: 8px;
-            margin-bottom: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .nav-item:hover { background-color: #f9fafb; color: var(--text-main); }
-        .nav-item.active { background-color: #e0e7ff; color: var(--primary); font-weight: 500; }
-        
-        .nav-group { margin-top: 20px; font-size: 12px; color: #9ca3af; font-weight: 600; padding-left: 16px; margin-bottom: 8px; text-transform: uppercase;}
 
-        /* Main Content */
-        .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        
-        /* Header */
-        .header {
-            height: var(--header-height);
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border);
+        header {
+            background: #fff;
+            padding: 15px 24px;
+            border-radius: 8px 8px 0 0; /* 与下方表格连接 */
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 { margin: 0; font-size: 18px; }
+        .stats { font-size: 14px; color: var(--text-secondary); }
+        .stats span { font-weight: bold; color: var(--primary-color); margin: 0 4px; }
+
+        /* Table Container */
+        .table-container {
+            background: #fff;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        thead {
+            background-color: var(--table-header-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            padding: 12px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s;
+        }
+
+        tbody tr:hover {
+            background-color: var(--hover-bg);
+        }
+
+        td {
+            padding: 16px 20px;
+            vertical-align: middle;
+        }
+
+        /* 视频预览列 */
+        .col-video { width: 220px; }
+        .video-preview {
+            width: 200px;
+            height: 112px;
+            background: #000;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        .video-preview img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .play-icon {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255,255,255,0.8);
+            font-size: 24px;
+        }
+
+        /* 员工信息样式 */
+        .emp-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 0 32px;
+            gap: 8px;
         }
-        .breadcrumb { font-size: 14px; color: var(--text-sub); }
-        .header-actions { display: flex; align-items: center; gap: 20px; }
-        .credits-pill {
-            background: #fffbeb; color: #b45309; border: 1px solid #fcd34d;
-            padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600;
-            display: flex; align-items: center; gap: 6px;
+
+        .emp-detail {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
-        .user-avatar { width: 32px; height: 32px; background: #ddd; border-radius: 50%; }
 
-        /* Page Content */
-        .content-area { flex: 1; padding: 32px; overflow-y: auto; }
-        .page { display: none; }
-        .page.active { display: block; animation: fadeIn 0.3s ease; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Components */
-        h1 { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
-        .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        /* 晋升标签 */
+        .badge-promo {
+            background-color: #fff3e0;
+            color: #d97900;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #ffdb9e;
+            font-weight: normal;
+        }
         
-        /* Dashboard Grid */
-        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .quick-action-card {
-            padding: 24px; border: 1px solid var(--border); border-radius: 12px; background: white;
-            cursor: pointer; transition: transform 0.2s; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px;
+        .badge-new {
+            background-color: #e6f7ff;
+            color: #0052d9;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #bcebdc;
         }
-        .quick-action-card:hover { transform: translateY(-3px); border-color: var(--primary); }
-        .icon-box { width: 48px; height: 48px; background: #e0e7ff; color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
 
-        /* Table */
-        .data-table { width: 100%; border-collapse: collapse; }
-        .data-table th, .data-table td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 14px; }
-        .data-table th { color: var(--text-sub); font-weight: 500; background: #f9fafb; }
-        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
-        .status-success { background: #dcfce7; color: #166534; }
-        .status-processing { background: #dbeafe; color: #1e40af; }
+        /* 按钮样式 */
+        .action-group {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
 
-        /* Video Translator Layout */
-        .split-view { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; height: 600px; }
-        .preview-area { background: #000; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; position: relative; }
-        .script-editor { border: 1px solid var(--border); border-radius: 8px; display: flex; flex-direction: column; }
-        .script-row { display: flex; padding: 12px; border-bottom: 1px solid var(--border); font-size: 13px; gap: 10px; }
-        .script-row:hover { background: #f9fafb; }
-        .timecode { color: var(--primary); font-family: monospace; width: 80px; }
-        .original-text { color: var(--text-sub); width: 40%; }
-        .translated-text { flex: 1; border: 1px solid #e5e7eb; padding: 4px; border-radius: 4px; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            font-weight: 500;
+        }
 
-        /* Avatar Studio */
-        .avatar-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; margin-bottom: 20px;}
-        .avatar-card { border: 2px solid transparent; border-radius: 8px; overflow: hidden; cursor: pointer; }
-        .avatar-card img { width: 100%; height: 150px; object-fit: cover; }
-        .avatar-card.selected { border-color: var(--primary); position: relative; }
-        .avatar-card.selected::after { content: '✓'; position: absolute; top: 5px; right: 5px; background: var(--primary); color: white; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+        .btn-pass {
+            background-color: var(--success-color);
+            color: white;
+        }
+        .btn-pass:hover { background-color: #008f5f; }
 
-        /* Form Elements */
-        .btn { padding: 10px 20px; border-radius: 6px; border: none; font-weight: 500; cursor: pointer; font-size: 14px; transition: 0.2s; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-hover); }
-        .btn-secondary { background: white; border: 1px solid var(--border); color: var(--text-main); }
-        
-        .form-group { margin-bottom: 16px; }
-        .form-label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; color: var(--text-main); }
-        .form-control { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; }
+        .btn-fail {
+            background-color: white;
+            border-color: var(--danger-color);
+            color: var(--danger-color);
+        }
+        .btn-fail:hover { background-color: #fff0f1; }
+
+        /* Modal Styles (保持不变) */
+        .modal-overlay {
+            display: none; position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            justify-content: center; align-items: center;
+        }
+        .modal-box {
+            background: #fff; padding: 25px; border-radius: 8px;
+            width: 400px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .reason-list label { display: block; margin: 10px 0; cursor: pointer; }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+
     </style>
 </head>
 <body>
 
-    <aside class="sidebar">
-        <div class="logo">
-            <i class="fa-solid fa-wand-magic-sparkles"></i> 慧播星
-        </div>
-        
-        <div class="nav-item active" onclick="switchPage('dashboard', this)">
-            <i class="fa-solid fa-chart-pie"></i> 仪表盘
-        </div>
+    <header>
+        <h1>CEO视频祝福审核列表 (第2025W1周批次)</h1>
+        <div class="stats">待审核 <span>50</span> 条</div>
+    </header>
 
-        <div class="nav-group">核心功能 (AI Studio)</div>
-        <div class="nav-item" onclick="switchPage('translator', this)">
-            <i class="fa-solid fa-video"></i> 视频翻译
-        </div>
-        <div class="nav-item" onclick="switchPage('avatar', this)">
-            <i class="fa-solid fa-users-viewfinder"></i> 数字人/口型
-        </div>
-        <div class="nav-item" onclick="switchPage('product', this)">
-            <i class="fa-solid fa-box-open"></i> 商品视频生成
-        </div>
-
-        <div class="nav-group">资源管理</div>
-        <div class="nav-item" onclick="switchPage('assets', this)">
-            <i class="fa-solid fa-folder-open"></i> 资产库
-        </div>
-    </aside>
-
-    <div class="main-wrapper">
-        <header class="header">
-            <div class="breadcrumb" id="page-title">首页 > 仪表盘</div>
-            <div class="header-actions">
-                <div class="credits-pill">
-                    <i class="fa-solid fa-coins"></i> 余额: 1,250 点
-                </div>
-                <i class="fa-regular fa-bell" style="font-size: 18px; color: #6b7280; cursor: pointer;"></i>
-                <div class="user-avatar"></div>
-            </div>
-        </header>
-
-        <div class="content-area">
-            
-            <div id="dashboard" class="page active">
-                <h1>早安，Alex 👋</h1>
-                <div class="grid-4">
-                    <div class="quick-action-card" onclick="document.querySelector('.nav-item:nth-child(4)').click()">
-                        <div class="icon-box"><i class="fa-solid fa-language"></i></div>
-                        <strong>视频翻译</strong>
-                        <span style="font-size:12px; color:#6b7280">存量视频本地化</span>
-                    </div>
-                    <div class="quick-action-card" onclick="document.querySelector('.nav-item:nth-child(5)').click()">
-                        <div class="icon-box"><i class="fa-solid fa-microphone-lines"></i></div>
-                        <strong>批量音频</strong>
-                        <span style="font-size:12px; color:#6b7280">多语种营销口播</span>
-                    </div>
-                    <div class="quick-action-card" onclick="document.querySelector('.nav-item:nth-child(5)').click()">
-                        <div class="icon-box"><i class="fa-solid fa-user-tie"></i></div>
-                        <strong>数字人对口型</strong>
-                        <span style="font-size:12px; color:#6b7280">批量生成讲解视频</span>
-                    </div>
-                    <div class="quick-action-card" onclick="document.querySelector('.nav-item:nth-child(6)').click()">
-                        <div class="icon-box"><i class="fa-solid fa-wand-magic"></i></div>
-                        <strong>商品素材</strong>
-                        <span style="font-size:12px; color:#6b7280">白底图变视频</span>
-                    </div>
-                </div>
-
-                <h3 style="margin: 32px 0 16px 0; font-size: 18px;">最近任务</h3>
-                <div class="card" style="padding: 0; overflow: hidden;">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>任务名称</th>
-                                <th>类型</th>
-                                <th>提交时间</th>
-                                <th>状态</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>夏季大促_口红_ES.mp4</td>
-                                <td>视频翻译 (西语)</td>
-                                <td>10分钟前</td>
-                                <td><span class="status-badge status-processing">处理中 45%</span></td>
-                                <td><a href="#" style="color:var(--primary)">详情</a></td>
-                            </tr>
-                            <tr>
-                                <td>新品介绍系列 (10条)</td>
-                                <td>数字人批量</td>
-                                <td>2小时前</td>
-                                <td><span class="status-badge status-success">已完成</span></td>
-                                <td><a href="#" style="color:var(--primary)">下载</a></td>
-                            </tr>
-                            <tr>
-                                <td>蓝牙耳机展示</td>
-                                <td>商品素材</td>
-                                <td>昨天</td>
-                                <td><span class="status-badge status-success">已完成</span></td>
-                                <td><a href="#" style="color:var(--primary)">下载</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div id="translator" class="page">
-                <h1>AI 视频翻译</h1>
-                <div class="card">
-                    <div class="split-view">
-                        <div style="display:flex; flex-direction:column; gap:16px;">
-                            <div class="preview-area" style="flex:1; background:#1f2937; display:flex; flex-direction:column; gap:10px;">
-                                <i class="fa-solid fa-clapperboard" style="font-size: 48px; color: #4b5563;"></i>
-                                <span style="font-size:14px; color:#9ca3af">原视频预览区</span>
-                            </div>
-                            <div style="display:flex; gap:10px;">
-                                <button class="btn btn-secondary" style="flex:1"><i class="fa-solid fa-play"></i> 播放原片</button>
-                                <button class="btn btn-secondary" style="flex:1"><i class="fa-solid fa-eye"></i> 预览效果</button>
-                            </div>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-video">视频预览</th>
+                    <th style="width: 20%;">员工姓名</th>
+                    <th style="width: 25%;">岗位信息</th>
+                    <th>司龄/状态</th>
+                    <th style="text-align: right;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="audit-list">
+                
+                <tr id="row-001">
+                    <td>
+                        <div class="video-preview">
+                            <img src="https://placehold.co/200x112/0052d9/FFF?text=Video-张伟" alt="封面">
+                            <div class="play-icon">▶</div>
                         </div>
-
-                        <div class="script-editor">
-                            <div style="padding:16px; border-bottom:1px solid var(--border); background:#f9fafb; font-weight:600;">
-                                脚本校对 (检测到源语言: 中文)
-                            </div>
-                            <div style="flex:1; overflow-y:auto;">
-                                <div class="script-row">
-                                    <div class="timecode">00:00:02</div>
-                                    <div class="original-text">这款口红真的不沾杯</div>
-                                    <input type="text" class="translated-text" value="This lipstick is really non-stick cup">
-                                </div>
-                                <div class="script-row">
-                                    <div class="timecode">00:00:05</div>
-                                    <div class="original-text">即使喝水也不会掉色</div>
-                                    <input type="text" class="translated-text" value="It won't fade even when drinking water">
-                                </div>
-                                <div class="script-row">
-                                    <div class="timecode">00:00:08</div>
-                                    <div class="original-text">点击下方链接购买</div>
-                                    <input type="text" class="translated-text" value="Click the link below to buy">
-                                </div>
-                            </div>
-                            <div style="padding:16px; border-top:1px solid var(--border);">
-                                <div class="form-group">
-                                    <label class="form-label">目标语言</label>
-                                    <select class="form-control">
-                                        <option>英语 (English US)</option>
-                                        <option>西班牙语 (Spanish)</option>
-                                        <option>泰语 (Thai)</option>
-                                    </select>
-                                </div>
-                                <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px; font-size:14px;">
-                                    <input type="checkbox" checked> 开启唇形同步 (Sync Lips) <span style="color:#f59e0b; font-size:12px;">+10 Credits</span>
-                                </div>
-                                <button class="btn btn-primary" style="width:100%">生成视频 (消耗 25 点)</button>
-                            </div>
+                    </td>
+                    <td>
+                        <div class="emp-name">张伟 <span class="badge-promo">↑ 年度晋升</span></div>
+                        <div class="emp-detail">ID: 89021</div>
+                    </td>
+                    <td>
+                        <div class="emp-detail">高级后端研发工程师 (P7)</div>
+                        <div class="emp-detail">基础架构部 / 效能平台组</div>
+                    </td>
+                    <td>
+                        <div class="emp-detail">3 周年</div>
+                        <div class="emp-detail">入职日: 01-15</div>
+                    </td>
+                    <td>
+                        <div class="action-group">
+                            <button class="btn btn-fail" onclick="openRejectModal('row-001', '张伟')">驳回</button>
+                            <button class="btn btn-pass" onclick="handlePass('row-001')">通过</button>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </td>
+                </tr>
 
-            <div id="avatar" class="page">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
-                    <h1>批量数字人制作</h1>
-                    <div>
-                        <button class="btn btn-secondary"><i class="fa-solid fa-file-excel"></i> 导入 Excel</button>
-                        <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> 新建一行</button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="form-group">
-                        <label class="form-label">1. 选择形象 (Avatar)</label>
-                        <div class="avatar-grid">
-                            <div class="avatar-card selected">
-                                <img src="https://ui-avatars.com/api/?name=Emma&background=random&size=200" alt="Avatar">
-                                <div style="padding:8px; font-size:12px; text-align:center; font-weight:600;">Emma (US)</div>
-                            </div>
-                            <div class="avatar-card">
-                                <img src="https://ui-avatars.com/api/?name=Li&background=random&size=200" alt="Avatar">
-                                <div style="padding:8px; font-size:12px; text-align:center; font-weight:600;">Li (CN)</div>
-                            </div>
-                            <div class="avatar-card">
-                                <img src="https://ui-avatars.com/api/?name=Sofia&background=random&size=200" alt="Avatar">
-                                <div style="padding:8px; font-size:12px; text-align:center; font-weight:600;">Sofia (ES)</div>
-                            </div>
+                <tr id="row-002">
+                    <td>
+                        <div class="video-preview">
+                            <img src="https://placehold.co/200x112/333/FFF?text=Video-李秀英" alt="封面">
+                            <div class="play-icon">▶</div>
                         </div>
-                    </div>
-
-                    <label class="form-label">2. 批量配置内容</label>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th style="width:50px">#</th>
-                                <th>文件名</th>
-                                <th>台词脚本 (Script)</th>
-                                <th style="width:120px">语种</th>
-                                <th style="width:120px">背景</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td><input type="text" class="form-control" value="Intro_01"></td>
-                                <td><input type="text" class="form-control" value="Welcome to our shop, today we have a huge sale."></td>
-                                <td>
-                                    <select class="form-control" style="padding:4px;"><option>English</option></select>
-                                </td>
-                                <td>Green Screen</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><input type="text" class="form-control" value="Intro_02"></td>
-                                <td><input type="text" class="form-control" value="Don't miss out on these exclusive deals."></td>
-                                <td>
-                                    <select class="form-control" style="padding:4px;"><option>English</option></select>
-                                </td>
-                                <td>Green Screen</td>
-                            </tr>
-                             <tr>
-                                <td>3</td>
-                                <td><input type="text" class="form-control" value="Intro_ES"></td>
-                                <td><input type="text" class="form-control" value="Bienvenido a nuestra tienda."></td>
-                                <td>
-                                    <select class="form-control" style="padding:4px;"><option>Spanish</option></select>
-                                </td>
-                                <td>Office</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div style="margin-top:24px; text-align:right;">
-                        <span style="margin-right:16px; font-size:14px; color:#6b7280">预计消耗: 30 Credits</span>
-                        <button class="btn btn-primary">批量生成 (3个视频)</button>
-                    </div>
-                </div>
-            </div>
-
-            <div id="product" class="page">
-                <h1>商品视频生成</h1>
-                <div class="card">
-                    <div class="split-view">
-                        <div style="display:flex; flex-direction:column; gap:16px;">
-                            <div style="border: 2px dashed var(--border); border-radius:12px; height:300px; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer;">
-                                <i class="fa-solid fa-cloud-arrow-up" style="font-size:32px; color:#9ca3af; margin-bottom:12px;"></i>
-                                <span style="color:#6b7280">点击上传商品主图</span>
-                                <span style="font-size:12px; color:#9ca3af">支持 JPG/PNG (自动去底)</span>
-                            </div>
+                    </td>
+                    <td>
+                        <div class="emp-name">李秀英</div>
+                        <div class="emp-detail">ID: 81005</div>
+                    </td>
+                    <td>
+                        <div class="emp-detail">资深大客户销售经理</div>
+                        <div class="emp-detail">华东销售区 /KA一部</div>
+                    </td>
+                    <td>
+                        <div class="emp-detail">5 周年</div>
+                        <div class="emp-detail">入职日: 01-18</div>
+                    </td>
+                    <td>
+                        <div class="action-group">
+                            <button class="btn btn-fail" onclick="openRejectModal('row-002', '李秀英')">驳回</button>
+                            <button class="btn btn-pass" onclick="handlePass('row-002')">通过</button>
                         </div>
+                    </td>
+                </tr>
 
-                        <div>
-                            <div class="form-group">
-                                <label class="form-label">选择场景风格 (Style)</label>
-                                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                                    <button class="btn btn-secondary active" style="border-color:var(--primary); background:#e0e7ff; color:var(--primary)">
-                                        <i class="fa-solid fa-gem"></i> 高级展台
-                                    </button>
-                                    <button class="btn btn-secondary"><i class="fa-solid fa-sun"></i> 户外自然</button>
-                                    <button class="btn btn-secondary"><i class="fa-solid fa-house"></i> 温馨家居</button>
-                                    <button class="btn btn-secondary"><i class="fa-solid fa-bolt"></i> 赛博科技</button>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label class="form-label">运镜方式</label>
-                                <select class="form-control">
-                                    <option>缓慢推近 (Zoom In)</option>
-                                    <option>环绕展示 (Orbit)</option>
-                                    <option>悬浮呼吸 (Floating)</option>
-                                </select>
-                            </div>
-
-                            <button class="btn btn-primary" style="width:100%; margin-top:20px;">生成预览 (消耗 5 点)</button>
+                <tr id="row-003">
+                    <td>
+                        <div class="video-preview">
+                            <img src="https://placehold.co/200x112/e34d59/FFF?text=Video-曾强" alt="封面">
+                            <div class="play-icon">▶</div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </td>
+                    <td>
+                        <div class="emp-name">曾强 <span class="badge-promo">↑ 晋升管理岗</span></div>
+                        <div class="emp-detail">ID: 76002</div>
+                    </td>
+                    <td>
+                        <div class="emp-detail">运营总监</div>
+                        <div class="emp-detail">平台运营部</div>
+                    </td>
+                    <td>
+                        <div class="emp-detail">8 周年</div>
+                        <div class="emp-detail">入职日: 01-19</div>
+                    </td>
+                    <td>
+                        <div class="action-group">
+                            <button class="btn btn-fail" onclick="openRejectModal('row-003', '曾强')">驳回</button>
+                            <button class="btn btn-pass" onclick="handlePass('row-003')">通过</button>
+                        </div>
+                    </td>
+                </tr>
 
-             <div id="assets" class="page">
-                <h1>资产库</h1>
-                <div class="card">
-                    <div style="padding:40px; text-align:center; color:#9ca3af;">
-                        <i class="fa-regular fa-folder-open" style="font-size:48px; margin-bottom:16px;"></i>
-                        <p>此处存放您所有的生成记录、上传的图片和克隆的音色模型。</p>
-                    </div>
-                </div>
-            </div>
+            </tbody>
+        </table>
+    </div>
 
+    <div class="modal-overlay" id="rejectModal">
+        <div class="modal-box">
+            <h3 style="margin-top:0">标记不通过：<span id="modalEmployeeName"></span></h3>
+            <div class="reason-list">
+                <label><input type="radio" name="reason" value="1"> 名字读音错误 (Name Error)</label>
+                <label><input type="radio" name="reason" value="2"> 画面崩坏/口型对不上</label>
+                <label><input type="radio" name="reason" value="3"> 岗位/年限信息错误</label>
+                <input type="text" placeholder="备注正确读音或说明..." style="width: 95%; margin-top:10px; padding: 8px;">
+            </div>
+            <div class="modal-actions">
+                <button class="btn" style="background:#eee;" onclick="closeRejectModal()">取消</button>
+                <button class="btn btn-pass" style="background:var(--danger-color);" onclick="confirmReject()">确认驳回</button>
+            </div>
         </div>
     </div>
 
     <script>
-        // 简单的页面切换逻辑
-        function switchPage(pageId, navElement) {
-            // 1. 隐藏所有页面
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // 2. 显示目标页面
-            document.getElementById(pageId).classList.add('active');
+        let currentRowId = null;
 
-            // 3. 更新侧边栏高亮
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            if(navElement) {
-                navElement.classList.add('active');
-            }
+        function handlePass(rowId) {
+            const row = document.getElementById(rowId);
+            row.style.background = '#e6fffa'; // 视觉反馈
+            setTimeout(() => {
+                row.remove(); // 移除行
+                updateCount();
+            }, 300);
+        }
 
-            // 4. 更新面包屑
-            let pageName = '仪表盘';
-            if(pageId === 'translator') pageName = 'AI 视频翻译';
-            if(pageId === 'avatar') pageName = '数字人/口型';
-            if(pageId === 'product') pageName = '商品视频生成';
-            if(pageId === 'assets') pageName = '资产库';
-            
-            document.getElementById('page-title').innerText = '首页 > ' + pageName;
+        function openRejectModal(rowId, name) {
+            currentRowId = rowId;
+            document.getElementById('modalEmployeeName').innerText = name;
+            document.getElementById('rejectModal').style.display = 'flex';
+        }
+
+        function closeRejectModal() {
+            document.getElementById('rejectModal').style.display = 'none';
+        }
+
+        function confirmReject() {
+            const row = document.getElementById(currentRowId);
+            row.style.background = '#fff0f1';
+            setTimeout(() => {
+                row.remove();
+                updateCount();
+            }, 300);
+            closeRejectModal();
+        }
+
+        function updateCount() {
+            const span = document.querySelector('.stats span');
+            let num = parseInt(span.innerText);
+            if(num > 0) span.innerText = num - 1;
         }
     </script>
 </body>
