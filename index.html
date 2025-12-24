@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>司龄祝福</title>
+    <style>
+        :root {
+            --primary-color: #0052d9;
+            --success-color: #00a870;
+            --danger-color: #e34d59;
+            --bg-color: #f5f7fa;
+            --text-main: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --border-color: #e7e7e7;
+            --table-header-bg: #fafafa;
+            --hover-bg: #f2f3f5;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-main);
+        }
+
+        header {
+            background: #fff;
+            padding: 15px 24px;
+            border-radius: 8px 8px 0 0; /* 与下方表格连接 */
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 { margin: 0; font-size: 18px; }
+        .stats { font-size: 14px; color: var(--text-secondary); }
+        .stats span { font-weight: bold; color: var(--primary-color); margin: 0 4px; }
+
+        /* Table Container */
+        .table-container {
+            background: #fff;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        thead {
+            background-color: var(--table-header-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            padding: 12px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s;
+        }
+
+        tbody tr:hover {
+            background-color: var(--hover-bg);
+        }
+
+        td {
+            padding: 16px 20px;
+            vertical-align: middle;
+        }
+
+        /* 视频预览列 */
+        .col-video { width: 220px; }
+        .video-preview {
+            width: 200px;
+            height: 112px;
+            background: #000;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        .video-preview img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .play-icon {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: rgba(255,255,255,0.8);
+            font-size: 24px;
+        }
+
+        /* 员工信息样式 */
+        .emp-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .emp-detail {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* 晋升标签 */
+        .badge-promo {
+            background-color: #fff3e0;
+            color: #d97900;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #ffdb9e;
+            font-weight: normal;
+        }
+        
+        .badge-new {
+            background-color: #e6f7ff;
+            color: #0052d9;
+            font-size: 12px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid #bcebdc;
+        }
+
+        /* 按钮样式 */
+        .action-group {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            font-weight: 500;
+        }
+
+        .btn-pass {
+            background-color: var(--success-color);
+            color: white;
+        }
+        .btn-pass:hover { background-color: #008f5f; }
+
+        .btn-fail {
+            background-color: white;
+            border-color: var(--danger-color);
+            color: var(--danger-color);
+        }
+        .btn-fail:hover { background-color: #fff0f1; }
+
+        /* Modal Styles (保持不变) */
+        .modal-overlay {
+            display: none; position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 100;
+            justify-content: center; align-items: center;
+        }
+        .modal-box {
+            background: #fff; padding: 25px; border-radius: 8px;
+            width: 400px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        .reason-list label { display: block; margin: 10px 0; cursor: pointer; }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>司龄祝福审核列表 (第2025W1周批次)</h1>
+        <div class="stats">待审核 <span>50</span> 条</div>
+    </header>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th class="col-video">视频预览</th>
+                    <th style="width: 20%;">员工姓名</th>
+                    <th style="width: 25%;">岗位信息</th>
+                    <th>司龄/状态</th>
+                    <th style="text-align: right;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="audit-list">
+                
+                <tr id="row-001">
+                    <td>
+                        <div class="video-preview">
+                            <img src="https://placehold.co/200x112/0052d9/FFF?text=Video-张伟" alt="封面">
+                            <div class="play-icon">▶</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="emp-name">张伟 <span class="badge-promo">↑ 年度晋升</span></div>
+                        <div class="emp-detail">ID: 89021</div>
+                    </td>
+                    <td>
+                        <div class="emp-detail">高级后端研发工程师 (P7)</div>
+                        <div class="emp-detail">基础架构部 / 效能平台组</div>
+                    </td>
+                    <td>
+                        <div class="emp-detail">3 周年</div>
+                        <div class="emp-detail">入职日: 01-15</div>
+                    </td>
+                    <td>
+                        <div class="action-group">
+                            <button class="btn btn-fail" onclick="openRejectModal('row-001', '张伟')">驳回</button>
+                            <button class="btn btn-pass" onclick="handlePass('row-001')">通过</button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr id="row-002">
+                    <td>
+                        <div class="video-preview">
+                            <img src="https://placehold.co/200x112/333/FFF?text=Video-李秀英" alt="封面">
+                            <div class="play-icon">▶</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="emp-name">李秀英</div>
+                        <div class="emp-detail">ID: 81005</div>
+                    </td>
+                    <td>
+                        <div class="emp-detail">资深大客户销售经理</div>
+                        <div class="emp-detail">华东销售区 /KA一部</div>
+                    </td>
+                    <td>
+                        <div class="emp-detail">5 周年</div>
+                        <div class="emp-detail">入职日: 01-18</div>
+                    </td>
+                    <td>
+                        <div class="action-group">
+                            <button class="btn btn-fail" onclick="openRejectModal('row-002', '李秀英')">驳回</button>
+                            <button class="btn btn-pass" onclick="handlePass('row-002')">通过</button>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr id="row-003">
+                    <td>
+                        <div class="video-preview">
+                            <img src="https://placehold.co/200x112/e34d59/FFF?text=Video-曾强" alt="封面">
+                            <div class="play-icon">▶</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="emp-name">曾强 <span class="badge-promo">↑ 晋升管理岗</span></div>
+                        <div class="emp-detail">ID: 76002</div>
+                    </td>
+                    <td>
+                        <div class="emp-detail">运营总监</div>
+                        <div class="emp-detail">平台运营部</div>
+                    </td>
+                    <td>
+                        <div class="emp-detail">8 周年</div>
+                        <div class="emp-detail">入职日: 01-19</div>
+                    </td>
+                    <td>
+                        <div class="action-group">
+                            <button class="btn btn-fail" onclick="openRejectModal('row-003', '曾强')">驳回</button>
+                            <button class="btn btn-pass" onclick="handlePass('row-003')">通过</button>
+                        </div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal-overlay" id="rejectModal">
+        <div class="modal-box">
+            <h3 style="margin-top:0">标记不通过：<span id="modalEmployeeName"></span></h3>
+            <div class="reason-list">
+                <label><input type="radio" name="reason" value="1"> 名字读音错误 (Name Error)</label>
+                <label><input type="radio" name="reason" value="2"> 画面崩坏/口型对不上</label>
+                <label><input type="radio" name="reason" value="3"> 岗位/年限信息错误</label>
+                <input type="text" placeholder="备注正确读音或说明..." style="width: 95%; margin-top:10px; padding: 8px;">
+            </div>
+            <div class="modal-actions">
+                <button class="btn" style="background:#eee;" onclick="closeRejectModal()">取消</button>
+                <button class="btn btn-pass" style="background:var(--danger-color);" onclick="confirmReject()">确认驳回</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentRowId = null;
+
+        function handlePass(rowId) {
+            const row = document.getElementById(rowId);
+            row.style.background = '#e6fffa'; // 视觉反馈
+            setTimeout(() => {
+                row.remove(); // 移除行
+                updateCount();
+            }, 300);
+        }
+
+        function openRejectModal(rowId, name) {
+            currentRowId = rowId;
+            document.getElementById('modalEmployeeName').innerText = name;
+            document.getElementById('rejectModal').style.display = 'flex';
+        }
+
+        function closeRejectModal() {
+            document.getElementById('rejectModal').style.display = 'none';
+        }
+
+        function confirmReject() {
+            const row = document.getElementById(currentRowId);
+            row.style.background = '#fff0f1';
+            setTimeout(() => {
+                row.remove();
+                updateCount();
+            }, 300);
+            closeRejectModal();
+        }
+
+        function updateCount() {
+            const span = document.querySelector('.stats span');
+            let num = parseInt(span.innerText);
+            if(num > 0) span.innerText = num - 1;
+        }
+    </script>
+</body>
+</html>

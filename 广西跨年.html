@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025-2026 广西跨年行</title>
+    <style>
+        :root {
+            --primary-color: #2c5d4e; /* 山野绿 */
+            --accent-color: #d65a31; /* 美食橙 */
+            --bg-color: #f7f9f9;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-light: #666666;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), #1a3c32);
+            color: white;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        header p {
+            margin-top: 0.5rem;
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0 1rem;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title span {
+            margin-right: 0.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .card.climbing {
+            border-left-color: #5d6d7e; /* 岩石灰 */
+        }
+
+        .card.food {
+            border-left-color: var(--accent-color);
+        }
+
+        .date-badge {
+            display: inline-block;
+            background-color: #e8f5e9;
+            color: var(--primary-color);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .location {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .activity-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .activity-list li {
+            position: relative;
+            padding-left: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .activity-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            margin-right: 5px;
+            margin-top: 5px;
+        }
+
+        .tag.food { background: #fbe9e7; color: #d84315; }
+        .tag.tips { background: #e3f2fd; color: #1565c0; }
+        .tag.climb { background: #eceff1; color: #455a64; }
+
+        .highlight-box {
+            background-color: #fff3e0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.5rem; }
+            .container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>山野与岩壁的二重奏</h1>
+    <p>2025.12.26 - 2026.01.04<br>桂林 & 阳朔 | 攀岩 & 徒步 | 美食之旅</p>
+</header>
+
+<div class="container">
+
+    <div class="highlight-box">
+        <strong>🗺️ 行程逻辑</strong><br>
+        前程(12.27-29)：住桂林喜来登，辐射周边，徒步赏景<br>
+        中程(12.30-31)：转场阳朔，浪漫骑行，仪式跨年<br>
+        后程(01.01-03)：阳朔驻扎，你攀岩，她徒步，美食收尾
+    </div>
+
+    <div class="section-title"><span>🛫</span>启程</div>
+    <div class="card">
+        <div class="date-badge">12月26日 晚</div>
+        <span class="location">抵达桂林 (KWL)</span>
+        <ul class="activity-list">
+            <li>落地后打车直奔市区（约45分钟）。</li>
+            <li>入住：<strong>桂林喜来登酒店</strong>（滨江路，位置极佳）。</li>
+            <li><strong>宵夜任务：</strong>去酒店附近的“正阳步行街”或路边小店，吃第一碗<strong>桂林卤菜粉</strong>（记得干拌！）。</li>
+        </ul>
+    </div>
+
+    <div class="section-title"><span>⛰️</span>第一乐章：山水画卷 (桂林驻扎)</div>
+
+    <div class="card">
+        <div class="date-badge">12月27日</div>
+        <span class="location">桂林 City Walk & 适应</span>
+        <ul class="activity-list">
+            <li><strong>上午：</strong>睡个懒觉。喜来登出门即是漓江，步行去旁边的<strong>象鼻山</strong>打卡。</li>
+            <li><strong>下午：</strong>沿着滨江路散步至<strong>逍遥楼</strong>，登楼远眺。随后去<strong>东西巷</strong>逛逛，感受老桂林风貌。</li>
+            <li><strong>晚餐：</strong>推荐 <strong>椿记烧鹅</strong>（喜来登附近有店），必点烧鹅和榴莲酥。</li>
+        </ul>
+        <span class="tag food">特色：烧鹅</span>
+        <span class="tag food">特色：糯米饭</span>
+    </div>
+
+    <div class="card">
+        <div class="date-badge">12月28日</div>
+        <span class="location">龙脊梯田 (秋秋的徒步日)</span>
+        <ul class="activity-list">
+            <li><strong>交通：</strong>预定当日往返的商务车或纯玩小团（喜来登出发）。</li>
+            <li><strong>活动：</strong>前往<strong>平安寨</strong>或<strong>金坑大寨</strong>。冬日的梯田灌水如镜，苍凉壮阔。</li>
+            <li><strong>重点：</strong>这里山路平缓，空气极佳，非常适合她徒步。你可以陪她在寨子里喝茶、看云。</li>
+            <li><strong>晚餐：</strong>回到市区，尝试<strong>恭城油茶</strong>（微苦回甘，非常有仪式感）。</li>
+        </ul>
+        <span class="tag food">特色：竹筒饭</span>
+        <span class="tag food">特色：油茶</span>
+    </div>
+
+    <div class="card">
+        <div class="date-badge">12月29日</div>
+        <span class="location">古镇时光 & 最后的桂林夜</span>
+        <ul class="activity-list">
+            <li><strong>上午：</strong>打车前往<strong>大圩古镇</strong>（约30分钟），这里比阳朔更原生态，适合拍照。</li>
+            <li><strong>下午：</strong>返回市区，整理行李。若有兴致，可去<strong>七星公园</strong>散步。</li>
+            <li><strong>晚餐：</strong><strong>桂林酸辣口味菜</strong>（如阿甘酒家），为明天的转场储备能量。</li>
+        </ul>
+    </div>
+
+    <div class="section-title"><span>🎆</span>第二乐章：阳朔跨年 (浪漫高光)</div>
+
+    <div class="card">
+        <div class="date-badge">12月30日</div>
+        <span class="location">转场阳朔：遇龙河慢时光</span>
+        <ul class="activity-list">
+            <li><strong>上午：</strong>退房，前往阳朔（高铁或包车）。建议入住<strong>白沙镇/旧县</strong>（离岩场近，安静）或<strong>西街外围</strong>。</li>
+            <li><strong>下午：</strong><strong>遇龙河竹筏</strong>（水厄底-工农桥段）或租电瓶车骑行<strong>十里画廊</strong>。</li>
+            <li><strong>晚餐：</strong><strong>啤酒鱼</strong>（选毛骨鱼，无刺鲜嫩）。</li>
+        </ul>
+    </div>
+
+    <div class="card" style="border-left-color: #e91e63;">
+        <div class="date-badge" style="background-color: #fce4ec; color: #e91e63;">12月31日 • 跨年夜</div>
+        <span class="location">相公山 & 糖厂花火</span>
+        <ul class="activity-list">
+            <li><strong>14:00：</strong>包车前往<strong>相公山</strong>，15分钟登顶，俯瞰漓江第一湾，拍下属于你们的年度大片。</li>
+            <li><strong>18:00：</strong>前往<strong>阳朔糖厂 (Sugar House)</strong> 或优质江景餐厅享用跨年晚餐（**需提前预订**）。</li>
+            <li><strong>23:50：</strong>在漓江边找一处空地，点燃<strong>手持冷烟花</strong>。</li>
+            <li><strong>00:00：</strong>拥抱2026，许下关于攀岩、徒步和生活的新年愿望。</li>
+        </ul>
+        <span class="tag tips">重要：提前订座</span>
+    </div>
+
+    <div class="section-title"><span>🧗</span>第三乐章：岩壁与自由 (各自精彩)</div>
+
+    <div class="card climbing">
+        <div class="date-badge">1月1日</div>
+        <span class="location">初识岩壁：Swiss Cheese</span>
+        <ul class="activity-list">
+            <li><strong>你 (Climber)：</strong>前往<strong>瑞士奶酪 (Swiss Cheese)</strong> 岩场。这里朝向好，冬日有阳光。目标：适应野外挂片，完成几条 5.9/5.10a 线路。</li>
+            <li><strong>她 (Hiker)：</strong>可在岩场下的草坪晒太阳、看书，或者徒步至附近的村落。</li>
+            <li><strong>晚上：</strong>汇合，分享一天的趣事，去吃<strong>斑鱼火锅</strong>暖身。</li>
+        </ul>
+    </div>
+
+    <div class="card climbing">
+        <div class="date-badge">1月2日</div>
+        <span class="location">深度体验：酒瓶山 vs 兴坪徒步</span>
+        <ul class="activity-list">
+            <li><strong>你 (Climber)：</strong>前往<strong>酒瓶山 (Wine Bottle)</strong>。挑战更高质量的线路，感受阳朔岩壁的魅力。建议请向导的一天，确保安全并学习野外技巧。</li>
+            <li><strong>她 (Hiker)：</strong>推荐前往<strong>兴坪古镇</strong>，体验<strong>九马画山沿江徒步</strong>（约5公里精华段）。</li>
+            <li><strong>晚餐：</strong>白沙镇吃地道的<strong>酸嘢</strong>和烧烤。</li>
+        </ul>
+    </div>
+
+    <div class="card climbing">
+        <div class="date-badge">1月3日</div>
+        <span class="location">最后的冲刺 & 返程准备</span>
+        <ul class="activity-list">
+            <li><strong>上午：</strong>去<strong>鸡蛋山 (Eggplant)</strong> 或 <strong>拇指峰</strong> 进行半日攀岩，轻松收尾。</li>
+            <li><strong>下午：</strong>收拾装备，返回桂林市区/机场附近。</li>
+            <li><strong>晚餐：</strong>最后的桂林味道，推荐尝试<strong>醋血鸭</strong>。</li>
+        </ul>
+    </div>
+
+    <div class="section-title"><span>✈️</span>返程</div>
+    <div class="card">
+        <div class="date-badge">1月4日 早</div>
+        <span class="location">桂林 (KWL) -> 上海 (PVG)</span>
+        <ul class="activity-list">
+            <li>带着满手的茧子、相机的内存和满满的电量，回家。</li>
+        </ul>
+    </div>
+
+    <div class="highlight-box" style="background-color: #e3f2fd;">
+        <strong>🎒 行前检查清单</strong><br>
+        <div style="text-align: left; margin-top: 10px; font-size: 0.9rem;">
+            ◻️ <strong>攀岩装备：</strong>攀岩鞋、粉袋（安全带/主绳可租，但鞋子一定要带自己的）。<br>
+            ◻️ <strong>衣物：</strong>羽绒服（岩场休息时非常冷！）、徒步鞋、运动裤。<br>
+            ◻️ <strong>预订：</strong>跨年夜餐厅、12.30-1.3的阳朔住宿。<br>
+            ◻️ <strong>其他：</strong>防晒霜（冬天的紫外线依然强）、墨镜。
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    Designed for your 2025-2026 Adventure
+</footer>
+
+</body>
+</html>
